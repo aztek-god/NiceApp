@@ -13,11 +13,14 @@
         <com.google.android.material.bottomappbar.BottomAppBar android:layout_width="match_parent"
                                                                android:id="@+id/bottom_app_bar"
                                                                android:layout_gravity="bottom"
+                                                               app:backgroundTint="@color/colorPrimary"
+                                                               app:menu="@menu/menu_bottom_app_bar"
                                                                app:navigationIcon="@drawable/ic_menu"
                                                                android:layout_height="?attr/actionBarSize"/>
         <com.google.android.material.floatingactionbutton.FloatingActionButton
                 android:id="@+id/fab"
                 android:layout_width="wrap_content"
+                android:src="@drawable/ic_search"
                 android:layout_height="wrap_content"
                 android:onClick="@{ activity::onFabClick }"
                 app:layout_anchor="@id/bottom_app_bar"/>

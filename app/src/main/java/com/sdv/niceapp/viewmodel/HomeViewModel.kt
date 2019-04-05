@@ -1,6 +1,24 @@
 package com.sdv.niceapp.viewmodel
 
-class HomeViewModel : AbstractCompositeViewModel() {
+import android.util.Log
+import com.sdv.niceapp.data.Response
+import com.sdv.niceapp.data.TopHeadlinesService
+import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.schedulers.Schedulers
 
+class HomeViewModel(private val topHeadlinesService: TopHeadlinesService) : AbstractCompositeViewModel() {
 
+    fun test() {
+        val disposable = topHeadlinesService
+            .getTopHeadlines(country = "us")
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribeOn(Schedulers.io())
+            .subscribe({ response: Response ->
+                Log.d("", "response = $response")
+            }, { error ->
+                Log.d("", "error = $error")
+            })
+
+        addDisposable(disposable)
+    }
 }

@@ -43,5 +43,7 @@ class HomeFragment : Fragment() {
         buttonView.setOnClickListener { view ->
             Navigation.findNavController(view).navigate(R.id.action_global_searchFragment)
         }
+
+        homeViewModel.test()
     }
 }

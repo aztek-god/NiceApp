@@ -6,10 +6,16 @@
     </data>
 
     <androidx.coordinatorlayout.widget.CoordinatorLayout
+            android:layout_height="match_parent"
+            android:layout_width="match_parent">
+        <com.google.android.material.appbar.AppBarLayout android:layout_width="match_parent"
+                                                         android:layout_height="wrap_content">
+            <androidx.appcompat.widget.Toolbar android:layout_width="match_parent"
+                                               android:background="?attr/colorPrimary"
+                                               android:layout_height="?attr/actionBarSize"/>
+        </com.google.android.material.appbar.AppBarLayout>
 
-            android:layout_height="match_parent" android:layout_width="match_parent">
-
-        <include layout="@layout/content_main" />
+        <include layout="@layout/content_main"/>
 
 
         <com.google.android.material.bottomappbar.BottomAppBar android:layout_width="match_parent"

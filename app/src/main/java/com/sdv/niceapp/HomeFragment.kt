@@ -44,6 +44,6 @@ class HomeFragment : Fragment() {
             Navigation.findNavController(view).navigate(R.id.action_global_searchFragment)
         }
 
-        homeViewModel.test()
+        homeViewModel.loadTopHeadlineNews()
     }
 }

@@ -14,13 +14,12 @@ private const val BASE_URL = "https://newsapi.org/v2/"
 
 val retrofitModule = module {
 
-    factory {
+    single {
         GsonBuilder()
             .create()
     }
 
-
-    factory {
+    single {
         OkHttpClient.Builder().apply {
             addInterceptor { chain ->
                 val original = chain.request()
@@ -40,31 +39,17 @@ val retrofitModule = module {
         }.build()
     }
 
-//    single {
-//        Retrofit.Builder()
-//            .baseUrl(BASE_URL)
-//            .client(get())
-//            .addConverterFactory(GsonConverterFactory.create(get()))
-//            .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
-//            .build()
-//    }
-
-
-    factory {
-        val retrofit = Retrofit.Builder()
+    single {
+        Retrofit.Builder()
             .baseUrl(BASE_URL)
-//            .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
             .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
             .client(get())
             .addConverterFactory(GsonConverterFactory.create(get()))
             .build()
-
-        retrofit.create(TopHeadlinesService::class.java)
-
-//        createService<TopHeadlinesService>(retrofit)
     }
-}
 
-private inline fun <reified T> createService(retrofit: Retrofit): T {
-    return retrofit.create(T::class.java)
+    single {
+        val retrofit = get<Retrofit>()
+        retrofit.create(TopHeadlinesService::class.java)
+    }
 }

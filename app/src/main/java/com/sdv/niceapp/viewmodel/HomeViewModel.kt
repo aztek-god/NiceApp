@@ -8,7 +8,7 @@ import io.reactivex.schedulers.Schedulers
 
 class HomeViewModel(private val topHeadlinesService: TopHeadlinesService) : AbstractCompositeViewModel() {
 
-    fun test() {
+    fun loadTopHeadlineNews() {
         val disposable = topHeadlinesService
             .getTopHeadlines(country = "us")
             .observeOn(AndroidSchedulers.mainThread())

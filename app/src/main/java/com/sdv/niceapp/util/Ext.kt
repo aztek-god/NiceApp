@@ -7,6 +7,8 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import androidx.annotation.LayoutRes
+import androidx.core.view.isGone
+import androidx.core.view.isVisible
 import androidx.databinding.BindingAdapter
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -39,3 +41,14 @@ fun <T> MutableList<T>.update(newList: List<T>) {
     addAll(newList)
 }
 
+fun View.visible() {
+    if (!isVisible) {
+        visibility = View.VISIBLE
+    }
+}
+
+fun View.gone() {
+    if (!isGone) {
+        visibility = View.GONE
+    }
+}

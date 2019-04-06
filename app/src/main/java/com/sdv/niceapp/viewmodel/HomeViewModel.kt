@@ -1,6 +1,7 @@
 package com.sdv.niceapp.viewmodel
 
 import android.util.Log
+import androidx.databinding.ObservableBoolean
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.sdv.niceapp.data.Article
@@ -16,12 +17,19 @@ class HomeViewModel(private val topHeadlinesService: TopHeadlinesService) : Abst
 
     private var currentPage = INIT_PAGE_INDEX
 
+    val isLoading: ObservableBoolean = ObservableBoolean()
+
     private val mArticleLiveData: MutableLiveData<Result<List<Article>>> = MutableLiveData()
     val articleLiveData: LiveData<Result<List<Article>>> get() = mArticleLiveData
 
-    fun loadTopHeadlineNews() {
+    fun loadTopHeadlineNews(isUpdate: Boolean = false) {
+
+        if (isUpdate) {
+            currentPage = INIT_PAGE_INDEX
+        }
+
         val disposable = topHeadlinesService
-            .getTopHeadlines(country = "us")
+            .getTopHeadlines(country = "us", pageSize = STANDARD_PAGE_SIZE, page = currentPage)
             .map { response ->
                 val result = if (response.articles.isEmpty()) {
                     Result.createEmpty<List<Article>>()
@@ -29,6 +37,12 @@ class HomeViewModel(private val topHeadlinesService: TopHeadlinesService) : Abst
                     Result.createData(response.articles)
                 }
                 ArticleResult(response.totalResults, result)
+            }
+            .doOnSubscribe {
+                isLoading.set(true)
+            }
+            .doOnComplete {
+                isLoading.set(false)
             }
             .doOnError { currentPage = INIT_PAGE_INDEX }
             .doOnNext { currentPage++ }

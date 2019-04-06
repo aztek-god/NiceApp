@@ -8,6 +8,7 @@ import com.sdv.diff_util.DiffUtilAdapter
 import com.sdv.niceapp.R
 import com.sdv.niceapp.data.Article
 import com.sdv.niceapp.databinding.ListItemArticleBinding
+import com.sdv.niceapp.util.gone
 import com.sdv.niceapp.util.inflate
 import java.lang.RuntimeException
 
@@ -15,6 +16,8 @@ private const val ARTICLE_VIEW_TYPE = 100
 private const val PROGRESS_VIEW_TYPE = 101
 
 internal class ArticleListAdapter : DiffUtilAdapter<Article, RecyclerView.ViewHolder>() {
+
+    private var progressViewHolder: ProgressViewHolder? = null
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         val layoutInflater = LayoutInflater.from(parent.context)
@@ -28,7 +31,8 @@ internal class ArticleListAdapter : DiffUtilAdapter<Article, RecyclerView.ViewHo
 
             PROGRESS_VIEW_TYPE -> {
                 val view = parent.inflate(R.layout.list_item_loading)
-                ProgressViewHolder(view)
+                progressViewHolder = ProgressViewHolder(view)
+                progressViewHolder!!
             }
             else -> {
                 throw RuntimeException("Unknown article view type with index = $viewType")
@@ -55,6 +59,17 @@ internal class ArticleListAdapter : DiffUtilAdapter<Article, RecyclerView.ViewHo
 
     override fun getItemCount(): Int {
         return super.getItemCount() + 1
+    }
+
+    fun addArticles(newArticleList: List<Article>) {
+        val oldDataList = currentData
+        updateData(oldDataList + newArticleList)
+    }
+
+    fun hideLoader() {
+        progressViewHolder?.run {
+            itemView.gone()
+        }
     }
 
     class ArticleViewHolder(private val articleDataBinding: ListItemArticleBinding) :

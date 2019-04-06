@@ -5,8 +5,11 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.sdv.niceapp.R
 import com.sdv.niceapp.adapter.ArticleListAdapter
 import com.sdv.niceapp.data.Article
@@ -38,6 +41,17 @@ class HomeFragment : Fragment() {
             adapter = articleListAdapter
             layoutManager = verticalLayoutManager(this@HomeFragment.context!!)
             addItemDecoration(MarginItemDecorator(resources.getDimension(R.dimen.recycler_view_margin).toInt()))
+            addOnScrollListener(
+                object : RecyclerView.OnScrollListener() {
+                    override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
+                        super.onScrollStateChanged(recyclerView, newState)
+
+                        if (!recyclerView.canScrollVertically(1) && !homeViewModel.isLoading.get()) {
+                            homeViewModel.loadTopHeadlineNews()
+                        }
+                    }
+                }
+            )
         }
 
         homeViewModel.articleLiveData.observe(this, Observer { result: Result<List<Article>> ->
@@ -46,13 +60,13 @@ class HomeFragment : Fragment() {
                     logd()
                 }
                 is Result.Data -> {
-                    articleListAdapter.updateData(result.data)
+                    articleListAdapter.addArticles(result.data)
                 }
                 is Result.Error -> {
                     onError(result.e)
                 }
                 is Result.Empty -> {
-                    logd()
+                    articleListAdapter.hideLoader()
                 }
             }
         })

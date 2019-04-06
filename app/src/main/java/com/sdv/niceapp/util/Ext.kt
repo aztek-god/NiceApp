@@ -11,6 +11,7 @@ import androidx.databinding.BindingAdapter
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
 
 fun ViewGroup.inflate(@LayoutRes layoutRes: Int, attachToRoot: Boolean = false): View {
     return LayoutInflater.from(context).inflate(layoutRes, this, attachToRoot)
@@ -21,6 +22,7 @@ fun loadImage(imageView: ImageView, imageUrl: String) {
     Glide
         .with(imageView)
         .load(imageUrl)
+        .transition(DrawableTransitionOptions.withCrossFade())
         .into(imageView)
 }
 

@@ -1,8 +1,12 @@
 package com.sdv.niceapp.data
 
+import android.os.Parcelable
 import com.google.gson.annotations.SerializedName
+import com.sdv.diff_util.DiffUtilItem
 import io.reactivex.Observable
 import io.reactivex.Single
+import kotlinx.android.parcel.Parcelize
+import kotlinx.android.parcel.RawValue
 import retrofit2.http.GET
 import retrofit2.http.Header
 import retrofit2.http.Headers
@@ -41,16 +45,18 @@ data class Response(
     val totalResults: Int
 )
 
+@Parcelize
 data class Source(
     @SerializedName("id")
-    val id: Any,
+    val id: String?,
     @SerializedName("name")
     val name: String
-)
+) : Parcelable
 
+@Parcelize
 data class Article(
     @SerializedName("author")
-    val author: Any,
+    val author: String?,
     @SerializedName("content")
     val content: String,
     @SerializedName("description")
@@ -65,4 +71,4 @@ data class Article(
     val url: String,
     @SerializedName("urlToImage")
     val urlToImage: String
-)
+) : DiffUtilItem, Parcelable

@@ -7,5 +7,12 @@ sealed class Result<T> {
 
     data class Data<T>(val data: T, val isCompleted: Boolean = false) : Result<T>()
 
-    object Empty : Result<Unit>()
+    class Empty<T> : Result<T>()
+
+    companion object {
+        fun <T> createProgress(isLoading: Boolean) = Progress<T>(isLoading)
+        fun <T> createError(e: Throwable) = Error<T>(e)
+        fun <T> createData(data: T, isCompleted: Boolean) = Data(data, isCompleted)
+        fun <T> createEmpty() = Empty<T>()
+    }
 }

@@ -8,9 +8,11 @@ abstract class DiffUtilAdapter<T : DiffUtilItem, VH : RecyclerView.ViewHolder> :
 
     protected val currentData: List<T> get() = dataList
 
-    protected fun updateData(newData: List<T>) {
-        val diffResult: DiffUtil.DiffResult = DiffUtil.calculateDiff(DiffUtilCallback(dataList, dataList + newData))
+    fun updateData(newData: List<T>) {
+        val diffResult: DiffUtil.DiffResult = DiffUtil.calculateDiff(DiffUtilCallback(dataList, newData))
         diffResult.dispatchUpdatesTo(this)
+        dataList.clear()
+        dataList.addAll(newData)
     }
 
     override fun getItemCount() = dataList.size

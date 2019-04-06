@@ -1,4 +1,4 @@
-package com.sdv.niceapp
+package com.sdv.niceapp.ui.fragment
 
 
 import android.os.Bundle
@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import com.sdv.niceapp.R
 
 
 // TODO: Rename parameter arguments, choose names that match

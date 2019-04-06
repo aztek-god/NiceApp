@@ -1,4 +1,4 @@
-package com.sdv.niceapp
+package com.sdv.niceapp.ui.fragment
 
 
 import android.os.Bundle
@@ -8,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.navigation.Navigation
+import com.sdv.niceapp.R
 import com.sdv.niceapp.viewmodel.HomeViewModel
 import kotlinx.android.synthetic.main.fragment_home.*
 import org.koin.androidx.viewmodel.ext.android.viewModel

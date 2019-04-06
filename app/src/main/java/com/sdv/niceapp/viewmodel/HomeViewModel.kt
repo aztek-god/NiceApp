@@ -21,7 +21,7 @@ class HomeViewModel(private val topHeadlinesService: TopHeadlinesService) : Abst
 
     fun loadTopHeadlineNews() {
         val disposable = topHeadlinesService
-            .getTopHeadlines(country = "us", page = 4)
+            .getTopHeadlines(country = "us")
             .map { response ->
                 val result = if (response.articles.isEmpty()) {
                     Result.createEmpty<List<Article>>()

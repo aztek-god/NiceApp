@@ -3,6 +3,8 @@ package com.sdv.niceapp.adapter
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageButton
+import android.widget.ToggleButton
 import androidx.recyclerview.widget.RecyclerView
 import com.sdv.diff_util.DiffUtilAdapter
 import com.sdv.niceapp.R
@@ -10,12 +12,15 @@ import com.sdv.niceapp.data.Article
 import com.sdv.niceapp.databinding.ListItemArticleBinding
 import com.sdv.niceapp.util.gone
 import com.sdv.niceapp.util.inflate
-import java.lang.RuntimeException
 
 private const val ARTICLE_VIEW_TYPE = 100
 private const val PROGRESS_VIEW_TYPE = 101
 
-internal class ArticleListAdapter : DiffUtilAdapter<Article, RecyclerView.ViewHolder>() {
+internal class ArticleListAdapter(
+    private val favoriteListener: (isFavorite: Boolean, article: Article) -> Unit,
+    private val shareLinkListener: (String) -> Unit
+) :
+    DiffUtilAdapter<Article, RecyclerView.ViewHolder>() {
 
     private var progressViewHolder: ProgressViewHolder? = null
 
@@ -26,7 +31,18 @@ internal class ArticleListAdapter : DiffUtilAdapter<Article, RecyclerView.ViewHo
             ARTICLE_VIEW_TYPE -> {
                 val articleBinding: ListItemArticleBinding =
                     ListItemArticleBinding.inflate(layoutInflater, parent, false)
-                ArticleViewHolder(articleBinding)
+                ArticleViewHolder(articleBinding).apply {
+                    favoriteCheckBox.setOnCheckedChangeListener { _, isChecked ->
+                        val article = currentData[adapterPosition]
+                        favoriteListener(isChecked, article)
+                    }
+                    shareButton.setOnClickListener {
+                        val article = currentData[adapterPosition]
+                        shareLinkListener(article.url)
+                    }
+                }
+
+
             }
 
             PROGRESS_VIEW_TYPE -> {
@@ -74,6 +90,14 @@ internal class ArticleListAdapter : DiffUtilAdapter<Article, RecyclerView.ViewHo
 
     class ArticleViewHolder(private val articleDataBinding: ListItemArticleBinding) :
         RecyclerView.ViewHolder(articleDataBinding.root) {
+
+        val favoriteCheckBox: ToggleButton by lazy {
+            articleDataBinding.root.findViewById<ToggleButton>(R.id.favorite)
+        }
+
+        val shareButton: ImageButton by lazy {
+            articleDataBinding.root.findViewById<ImageButton>(R.id.share)
+        }
 
         fun bind(article: Article) {
             articleDataBinding.article = article

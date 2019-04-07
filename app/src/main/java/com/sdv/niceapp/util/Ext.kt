@@ -20,7 +20,7 @@ fun ViewGroup.inflate(@LayoutRes layoutRes: Int, attachToRoot: Boolean = false):
 }
 
 @BindingAdapter("app:imageUrl")
-fun loadImage(imageView: ImageView, imageUrl: String) {
+fun loadImage(imageView: ImageView, imageUrl: String?) {
     Glide
         .with(imageView)
         .load(imageUrl)

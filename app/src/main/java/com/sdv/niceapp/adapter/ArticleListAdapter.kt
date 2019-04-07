@@ -12,6 +12,7 @@ import com.sdv.niceapp.data.Article
 import com.sdv.niceapp.databinding.ListItemArticleBinding
 import com.sdv.niceapp.util.gone
 import com.sdv.niceapp.util.inflate
+import com.sdv.niceapp.util.visible
 
 private const val ARTICLE_VIEW_TYPE = 100
 private const val PROGRESS_VIEW_TYPE = 101
@@ -80,6 +81,9 @@ internal class ArticleListAdapter(
     fun addArticles(newArticleList: List<Article>) {
         val oldDataList = currentData
         updateData(oldDataList + newArticleList)
+        progressViewHolder?.run {
+            itemView.visible()
+        }
     }
 
     fun hideLoader() {

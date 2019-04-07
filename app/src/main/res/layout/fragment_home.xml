@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:app="http://schemas.android.com/apk/res-auto">
+<layout xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
     <data>
         <variable name="articleViewModel" type="com.sdv.niceapp.viewmodel.ArticleViewModel"/>
+        <import type="android.view.View"/>
     </data>
 
     <androidx.coordinatorlayout.widget.CoordinatorLayout
-            xmlns:android="http://schemas.android.com/apk/res/android"
             android:layout_height="match_parent"
             android:layout_width="match_parent">
 
@@ -18,21 +18,23 @@
 
 
         <LinearLayout android:orientation="vertical" android:layout_width="match_parent"
-                      android:layout_height="match_parent">
+                      android:layout_height="match_parent"
+        >
             <Space
                     android:layout_width="match_parent"
                     android:layout_height="?attr/actionBarSize"
                     android:id="@+id/space"
             />
-            <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
-                    android:id="@+id/articleSwipeRefresh"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
-                <androidx.recyclerview.widget.RecyclerView
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent" android:id="@+id/articleRv"
+            <FrameLayout android:layout_width="match_parent" android:layout_height="match_parent">
+
+                <ProgressBar android:layout_width="wrap_content" android:layout_height="wrap_content"
+                             android:layout_gravity="center"
+                             android:visibility="@{articleViewModel.isLoading() ? View.VISIBLE : View.GONE}"
                 />
-            </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+                <include layout="@layout/fragment_home_content_include"
+                         android:visibility="@{articleViewModel.isLoading() ? View.GONE : View.VISIBLE}"/>
+            </FrameLayout>
+
         </LinearLayout>
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
 </layout>

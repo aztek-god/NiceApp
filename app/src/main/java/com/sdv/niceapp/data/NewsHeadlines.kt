@@ -1,6 +1,10 @@
 package com.sdv.niceapp.data
 
 import android.os.Parcelable
+import androidx.room.ColumnInfo
+import androidx.room.Embedded
+import androidx.room.Entity
+import androidx.room.PrimaryKey
 import com.google.gson.annotations.SerializedName
 import com.sdv.diff_util.DiffUtilItem
 import io.reactivex.Observable
@@ -45,30 +49,42 @@ data class Response(
     val totalResults: Int
 )
 
+@Entity
 @Parcelize
 data class Source(
     @SerializedName("id")
     val id: String?,
+    @ColumnInfo(name = "source_name")
     @SerializedName("name")
     val name: String
 ) : Parcelable
 
 @Parcelize
+@Entity(tableName = "article")
 data class Article(
+    @ColumnInfo(name = "author")
     @SerializedName("author")
     val author: String?,
+    @ColumnInfo(name = "content")
     @SerializedName("content")
     val content: String,
+    @ColumnInfo(name = "description")
     @SerializedName("description")
     val description: String,
+    @ColumnInfo(name = "publishedAt")
     @SerializedName("publishedAt")
     val publishedAt: String,
+    @Embedded
     @SerializedName("source")
     val source: Source,
+    @ColumnInfo(name = "title")
     @SerializedName("title")
     val title: String,
+    @PrimaryKey(autoGenerate = false)
+    @ColumnInfo(name = "url")
     @SerializedName("url")
     val url: String,
+    @ColumnInfo(name = "url_to_image")
     @SerializedName("urlToImage")
     val urlToImage: String
 ) : DiffUtilItem, Parcelable

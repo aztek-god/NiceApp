@@ -2,7 +2,6 @@ package com.sdv.niceapp.koin
 
 import com.google.gson.GsonBuilder
 import com.sdv.niceapp.BuildConfig
-import com.sdv.niceapp.data.TopHeadlinesService
 import okhttp3.OkHttpClient
 import org.koin.dsl.module
 import retrofit2.Retrofit
@@ -48,8 +47,5 @@ val retrofitModule = module {
             .build()
     }
 
-    single {
-        val retrofit = get<Retrofit>()
-        retrofit.create(TopHeadlinesService::class.java)
-    }
+
 }

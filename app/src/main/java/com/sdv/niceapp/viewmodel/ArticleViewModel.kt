@@ -1,20 +1,23 @@
 package com.sdv.niceapp.viewmodel
 
-import android.annotation.SuppressLint
-import android.util.Log
 import androidx.databinding.ObservableBoolean
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.sdv.niceapp.data.Article
 import com.sdv.niceapp.data.TopHeadlinesService
+import com.sdv.niceapp.database.ArticleDao
 import com.sdv.niceapp.util.Result
+import io.reactivex.Completable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 
 private const val INIT_PAGE_INDEX = 1
 private const val STANDARD_PAGE_SIZE = 10
 
-class ArticleViewModel(private val topHeadlinesService: TopHeadlinesService) : AbstractCompositeViewModel() {
+class ArticleViewModel(
+    private val topHeadlinesService: TopHeadlinesService,
+    private val articleDao: ArticleDao
+) : AbstractCompositeViewModel() {
 
     private var currentPage = INIT_PAGE_INDEX
 
@@ -62,6 +65,26 @@ class ArticleViewModel(private val topHeadlinesService: TopHeadlinesService) : A
                 }, { error ->
                     mArticleLiveData.value = Result.createError(error)
                 })
+
+        addDisposable(disposable)
+    }
+
+    fun addToFavorites(article: Article) {
+        val disposable = Completable.fromAction {
+            articleDao.insert(article)
+        }
+            .subscribeOn(Schedulers.io())
+            .subscribe()
+
+        addDisposable(disposable)
+    }
+
+    fun removeFromFavorites(article: Article) {
+        val disposable = Completable.fromAction {
+            articleDao.delete(article)
+        }
+            .subscribeOn(Schedulers.io())
+            .subscribe()
 
         addDisposable(disposable)
     }

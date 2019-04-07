@@ -26,7 +26,11 @@ class ArticleFragment : Fragment() {
 
     private val articleListAdapter: ArticleListAdapter = ArticleListAdapter(
         favoriteListener = { isFavorite, article ->
-            logd()
+            if (isFavorite) {
+                articleViewModel.addToFavorites(article)
+            } else {
+                articleViewModel.removeFromFavorites(article)
+            }
         },
         shareLinkListener = { shareUrl ->
             ShareCompat.IntentBuilder.from(activity)

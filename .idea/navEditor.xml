@@ -13,17 +13,34 @@
                       <LayoutPositions />
                     </value>
                   </entry>
+                  <entry key="detailArticleFragment">
+                    <value>
+                      <LayoutPositions>
+                        <option name="myPosition">
+                          <Point>
+                            <option name="x" value="-181" />
+                            <option name="y" value="-44" />
+                          </Point>
+                        </option>
+                      </LayoutPositions>
+                    </value>
+                  </entry>
                   <entry key="homeFragment">
                     <value>
                       <LayoutPositions>
                         <option name="myPosition">
                           <Point>
-                            <option name="x" value="-371" />
-                            <option name="y" value="25" />
+                            <option name="x" value="-465" />
+                            <option name="y" value="121" />
                           </Point>
                         </option>
                         <option name="myPositions">
                           <map>
+                            <entry key="action_homeFragment_to_detailArticleFragment">
+                              <value>
+                                <LayoutPositions />
+                              </value>
+                            </entry>
                             <entry key="action_homeFragment_to_searchFragment">
                               <value>
                                 <LayoutPositions />
@@ -39,8 +56,8 @@
                       <LayoutPositions>
                         <option name="myPosition">
                           <Point>
-                            <option name="x" value="-60" />
-                            <option name="y" value="22" />
+                            <option name="x" value="-190" />
+                            <option name="y" value="324" />
                           </Point>
                         </option>
                       </LayoutPositions>

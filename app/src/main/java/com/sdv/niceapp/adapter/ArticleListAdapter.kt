@@ -5,6 +5,8 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageButton
 import android.widget.ToggleButton
+import androidx.core.os.bundleOf
+import androidx.navigation.Navigation
 import androidx.recyclerview.widget.RecyclerView
 import com.sdv.diff_util.DiffUtilAdapter
 import com.sdv.niceapp.R
@@ -40,6 +42,13 @@ internal class ArticleListAdapter(
                     shareButton.setOnClickListener {
                         val article = currentData[adapterPosition]
                         shareLinkListener(article.url)
+                    }
+                    itemView.setOnClickListener {
+                        val article = currentData[adapterPosition]
+                        val bundle = bundleOf("article" to article)
+
+                        Navigation.findNavController(itemView)
+                            .navigate(R.id.action_homeFragment_to_detailArticleFragment, bundle)
                     }
                 }
 

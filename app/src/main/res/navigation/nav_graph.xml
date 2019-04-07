@@ -9,7 +9,13 @@
     <fragment android:id="@+id/homeFragment" android:name="com.sdv.niceapp.ui.fragment.ArticleFragment" android:label="fragment_home"
               tools:layout="@layout/fragment_home">
         <action android:id="@+id/action_homeFragment_to_searchFragment" app:destination="@id/searchFragment"/>
+        <action android:id="@+id/action_homeFragment_to_detailArticleFragment"
+                app:destination="@id/detailArticleFragment"/>
     </fragment>
     <action android:id="@+id/action_global_searchFragment" app:destination="@id/searchFragment"
             app:launchSingleTop="true"/>
+    <fragment android:id="@+id/detailArticleFragment" android:name="com.sdv.niceapp.ui.fragment.DetailArticleFragment"
+              android:label="DetailArticleFragment">
+        <argument android:name="article" app:argType="com.sdv.niceapp.data.Article"/>
+    </fragment>
 </navigation>

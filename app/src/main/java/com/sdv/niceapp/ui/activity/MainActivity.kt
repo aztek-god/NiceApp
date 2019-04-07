@@ -24,7 +24,8 @@ class MainActivity : AppCompatActivity() {
     }
 
     fun onFabClick(view: View) {
-        Navigation.findNavController(this@MainActivity,
+        Navigation.findNavController(
+            this@MainActivity,
             R.id.fragment
         ).navigate(R.id.action_global_searchFragment)
     }
@@ -41,6 +42,9 @@ class MainActivity : AppCompatActivity() {
             android.R.id.home -> {
                 Log.d("", "item = $item")
                 BottomSheetDialog().show(supportFragmentManager, null)
+            }
+            R.id.favorites -> {
+//                Navigation.findNavController(this@MainActivity, R.id.action_homeFragment_to_bookmarkFragment)
             }
         }
 

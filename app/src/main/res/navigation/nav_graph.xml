@@ -11,6 +11,7 @@
         <action android:id="@+id/action_homeFragment_to_searchFragment" app:destination="@id/searchFragment"/>
         <action android:id="@+id/action_homeFragment_to_detailArticleFragment"
                 app:destination="@id/detailArticleFragment"/>
+        <action android:id="@+id/action_homeFragment_to_bookmarkFragment" app:destination="@id/bookmarkFragment"/>
     </fragment>
     <action android:id="@+id/action_global_searchFragment" app:destination="@id/searchFragment"
             app:launchSingleTop="true"/>
@@ -18,4 +19,6 @@
               android:label="DetailArticleFragment">
         <argument android:name="article" app:argType="com.sdv.niceapp.data.Article"/>
     </fragment>
+    <fragment android:id="@+id/bookmarkFragment" android:name="com.sdv.niceapp.ui.fragment.BookmarkFragment"
+              android:label="fragment_bookmark" tools:layout="@layout/fragment_bookmark"/>
 </navigation>

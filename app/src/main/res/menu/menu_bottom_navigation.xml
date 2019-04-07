@@ -3,9 +3,9 @@
       xmlns:app="http://schemas.android.com/apk/res-auto">
     <!--<group android:checkableBehavior="all">-->
     <item
-            android:id="@+id/nav1"
+            android:id="@+id/favorites"
             android:icon="@drawable/ic_menu"
-            android:title="title1"/>
+            android:title="@string/favorites"/>
     <item
             android:id="@+id/nav2"
             android:icon="@drawable/ic_menu"

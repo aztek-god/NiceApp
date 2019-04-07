@@ -5,8 +5,10 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.navigation.Navigation
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.sdv.niceapp.R
+import com.sdv.niceapp.util.logd
 import kotlinx.android.synthetic.main.bottom_sheet_layout.*
 
 class BottomSheetDialog : BottomSheetDialogFragment() {
@@ -20,8 +22,13 @@ class BottomSheetDialog : BottomSheetDialogFragment() {
 
         bottom_navigation_view.setOnNavigationItemSelectedListener { menuItem ->
             when (menuItem.itemId) {
-                R.id.nav1 -> {
-                    Log.d("", "")
+                R.id.favorites -> {
+                    logd()
+                    Navigation.findNavController(
+                        activity!!,
+                        R.id.fragment
+                    )
+                        .navigate(R.id.action_homeFragment_to_bookmarkFragment)
                 }
             }
             true

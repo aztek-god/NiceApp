@@ -9,10 +9,13 @@ sealed class Result<T> {
 
     class Empty<T> : Result<T>()
 
+    data class Update<T>(val data: T) : Result<T>()
+
     companion object {
         fun <T> createProgress(isLoading: Boolean) = Progress<T>(isLoading)
         fun <T> createError(e: Throwable) = Error<T>(e)
         fun <T> createData(data: T) = Data(data)
         fun <T> createEmpty() = Empty<T>()
+        fun <T> createUpdate(data: T) = Update<T>(data)
     }
 }

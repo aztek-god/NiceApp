@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.app.ShareCompat
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
@@ -28,18 +29,17 @@ class ArticleFragment : Fragment() {
             logd()
         },
         shareLinkListener = { shareUrl ->
-            logd()
+            ShareCompat.IntentBuilder.from(activity)
+                .setType("text/plain")
+                .setChooserTitle(getString(R.string.action_share_with))
+                .setText(shareUrl)
+                .startChooser()
         })
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // artianDataBinding binding = DataBindingUtil.inflate(
-        //            inflater, R.layout.martian_data, container, false);
-        //    View view = binding.getRoot();
-        //    //here data must be an instance of the class MarsDataProvider
-        //    binding.setMarsdata(data);
 
         val dataBinding: FragmentHomeBinding =
             DataBindingUtil.inflate(inflater, R.layout.fragment_home, container, false)

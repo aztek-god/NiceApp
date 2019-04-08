@@ -18,6 +18,7 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
 import com.jakewharton.rxbinding2.widget.RxTextView
 import io.reactivex.Observable
+import io.reactivex.android.schedulers.AndroidSchedulers
 
 fun ViewGroup.inflate(@LayoutRes layoutRes: Int, attachToRoot: Boolean = false): View {
     return LayoutInflater.from(context).inflate(layoutRes, this, attachToRoot)
@@ -61,5 +62,10 @@ fun shortToast(context: Context, message: String) {
     Toast.makeText(context, message, Toast.LENGTH_SHORT).show()
 }
 
-//fun EditText.asObservable(): Observable<String> {
-//}
+fun EditText.asObservable(): Observable<CharSequence> {
+    return RxTextView
+        .afterTextChangeEvents(this)
+        .skipInitialValue()
+        .map { it.view().text }
+        .observeOn(AndroidSchedulers.mainThread())
+}

@@ -42,7 +42,7 @@ interface TopHeadlinesService {
 
 data class Response(
     @SerializedName("articles")
-    val articles: List<Article>,
+    val articles: List<Article> = emptyList(),
     @SerializedName("status")
     val status: String,
     @SerializedName("totalResults")

@@ -1,6 +1,7 @@
 package com.sdv.niceapp.ui.fragment
 
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -13,6 +14,7 @@ import androidx.lifecycle.Observer
 import com.jakewharton.rxbinding2.widget.RxTextView
 import com.sdv.niceapp.adapter.ArticleListAdapter
 import com.sdv.niceapp.util.Result
+import com.sdv.niceapp.util.asObservable
 import com.sdv.niceapp.util.shortToast
 import com.sdv.niceapp.util.verticalLayoutManager
 import com.sdv.niceapp.viewmodel.ArticleDatabaseViewModel
@@ -21,6 +23,8 @@ import kotlinx.android.synthetic.main.fragment_search.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import java.util.concurrent.TimeUnit
 
+
+private const val SEARCH_INTERVAL = 400L
 
 class SearchFragment : Fragment() {
 
@@ -51,6 +55,7 @@ class SearchFragment : Fragment() {
         return inflater.inflate(com.sdv.niceapp.R.layout.fragment_search, container, false)
     }
 
+    @SuppressLint("CheckResult")
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
@@ -64,13 +69,10 @@ class SearchFragment : Fragment() {
         imm!!.showSoftInput(searchArticleView, InputMethodManager.SHOW_IMPLICIT)
 
 
-        RxTextView
-            .afterTextChangeEvents(searchArticleView)
-            .skipInitialValue()
-            .debounce(400, TimeUnit.MILLISECONDS)
-            .subscribe {
-                it.view().text
-            }
+        searchArticleView
+            .asObservable()
+            .debounce(SEARCH_INTERVAL, TimeUnit.MILLISECONDS)
+            .subscribe { query -> searchArticleViewModel.searchArticle(query.toString()) }
 
         searchArticleViewModel.articleLiveData.observe(this, Observer { result ->
             when (result) {

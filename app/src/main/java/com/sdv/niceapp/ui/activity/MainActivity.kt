@@ -5,6 +5,7 @@ import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
+import android.view.WindowManager
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.navigation.Navigation
@@ -19,6 +20,9 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         val binding: MainLayoutBinding = DataBindingUtil.setContentView(this, R.layout.main_layout)
         binding.activity = this
+
+        // don't allow keyboard to move up the bottom app bar
+        window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN)
 
         setSupportActionBar(bottom_app_bar)
     }

@@ -15,8 +15,7 @@ private const val INIT_PAGE_INDEX = 1
 private const val STANDARD_PAGE_SIZE = 10
 
 class ArticleViewModel(
-    private val topHeadlinesService: TopHeadlinesService,
-    private val articleDao: ArticleDao
+    private val topHeadlinesService: TopHeadlinesService
 ) : AbstractCompositeViewModel() {
 
     private var currentPage = INIT_PAGE_INDEX
@@ -69,23 +68,4 @@ class ArticleViewModel(
         addDisposable(disposable)
     }
 
-    fun addToFavorites(article: Article) {
-        val disposable = Completable.fromAction {
-            articleDao.insert(article)
-        }
-            .subscribeOn(Schedulers.io())
-            .subscribe()
-
-        addDisposable(disposable)
-    }
-
-    fun removeFromFavorites(article: Article) {
-        val disposable = Completable.fromAction {
-            articleDao.delete(article)
-        }
-            .subscribeOn(Schedulers.io())
-            .subscribe()
-
-        addDisposable(disposable)
-    }
 }

@@ -15,6 +15,7 @@ import com.sdv.niceapp.adapter.ArticleListAdapter
 import com.sdv.niceapp.data.Article
 import com.sdv.niceapp.databinding.FragmentHomeBinding
 import com.sdv.niceapp.util.*
+import com.sdv.niceapp.viewmodel.ArticleDatabaseViewModel
 import com.sdv.niceapp.viewmodel.ArticleViewModel
 import kotlinx.android.synthetic.main.fragment_home.*
 import kotlinx.android.synthetic.main.fragment_home_content_include.*
@@ -24,13 +25,14 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 class ArticleFragment : Fragment() {
 
     private val articleViewModel: ArticleViewModel by viewModel()
+    private val articleDatabaseViewModel: ArticleDatabaseViewModel by viewModel()
 
     private val articleListAdapter: ArticleListAdapter = ArticleListAdapter(
         favoriteListener = { isFavorite, article ->
             if (isFavorite) {
-                articleViewModel.addToFavorites(article)
+                articleDatabaseViewModel.addToFavorites(article)
             } else {
-                articleViewModel.removeFromFavorites(article)
+                articleDatabaseViewModel.removeFromFavorites(article)
             }
         },
         shareLinkListener = { shareUrl ->

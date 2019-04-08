@@ -48,6 +48,11 @@
                         </option>
                         <option name="myPositions">
                           <map>
+                            <entry key="action_homeFragment_to_bookmarkFragment">
+                              <value>
+                                <LayoutPositions />
+                              </value>
+                            </entry>
                             <entry key="action_homeFragment_to_detailArticleFragment">
                               <value>
                                 <LayoutPositions />

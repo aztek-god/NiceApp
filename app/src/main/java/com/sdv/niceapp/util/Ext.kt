@@ -5,7 +5,9 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.EditText
 import android.widget.ImageView
+import android.widget.Toast
 import androidx.annotation.LayoutRes
 import androidx.core.view.isGone
 import androidx.core.view.isVisible
@@ -14,6 +16,8 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
+import com.jakewharton.rxbinding2.widget.RxTextView
+import io.reactivex.Observable
 
 fun ViewGroup.inflate(@LayoutRes layoutRes: Int, attachToRoot: Boolean = false): View {
     return LayoutInflater.from(context).inflate(layoutRes, this, attachToRoot)
@@ -52,3 +56,10 @@ fun View.gone() {
         visibility = View.GONE
     }
 }
+
+fun shortToast(context: Context, message: String) {
+    Toast.makeText(context, message, Toast.LENGTH_SHORT).show()
+}
+
+//fun EditText.asObservable(): Observable<String> {
+//}
